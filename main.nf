@@ -375,7 +375,7 @@ process merge_transcriptomes {
         path "stringtie.gtf", emit: gtf
     """
     stringtie --merge -G $ref_annotation -p ${task.cpus} -o stringtie_temp.gtf query_annotations/*
-    awk -F'\t' '$7 == "+" || $7 == "-" { print $0 }' stringtie_temp.gtf > "stringtie.gtf"
+    awk -F'\t' '\$7 == "+" || \$7 == "-" { print \$0 }' stringtie_temp.gtf > "stringtie.gtf"
     seqkit subseq --feature "transcript" --gtf-tag "transcript_id" --gtf stringtie.gtf $ref_genome > temp_transcriptome.fasta
     seqkit rmdup -s < temp_transcriptome.fasta > temp_del_repeats.fasta
     cat temp_del_repeats.fasta | sed 's/>.* />/'  | sed -e 's/_[0-9]* \\[/ \\[/' > temp_rm_empty_seq.fasta
