@@ -383,6 +383,7 @@ process merge_transcriptomes {
     rm temp_transcriptome.fasta
     rm temp_del_repeats.fasta
     rm temp_rm_empty_seq.fasta
+    rm stringtie_temp.gtf
     """
 }
 
